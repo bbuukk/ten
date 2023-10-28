@@ -17,6 +17,7 @@ console.log(isObject(new Object(null)));
 console.log(isObject(new Object(undefined)));
 
 console.log();
+console.log(isObject(new Date()));
 console.log(isObject(arr));
 console.log(isObject(bohdan));
 console.log(isObject(newWeakMap));
