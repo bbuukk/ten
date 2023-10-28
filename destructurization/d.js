@@ -21,7 +21,22 @@
 }
 
 {
-  const { b = console.log("hey") } = { b: undefined };
+  // const { b = console.log("hey") } = { b: undefined };
   // Does not log anything, because `b` is defined and there's no need
   // to evaluate the default value.
 }
+
+// const array = [
+//   { pop: "foo", push: "bar" },
+//   { pop: "baz", push: "qux" },
+// ];
+
+// const [{ pop: p1, push: p2 }, { pop, push }] = array;
+
+// console.log(p1); // Outputs: "foo"
+// console.log(p2); // Outputs: "foo"
+// console.log(pop); // Outputs: "foo"
+// console.log(push); // Outputs: "foo"
+
+const { a, toFixed } = 1;
+console.log(a, toFixed);
