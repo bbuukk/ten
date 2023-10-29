@@ -17,31 +17,6 @@
 // If the string begins with "0x" or "0X", the radix is 16 (hexadecimal).
 //when encounters first character of ouf current redix system it stops and evaluetes the number, not throwing an error
 
-// console.log(Number.parseInt("2312342"));
-// console.log(Number.parseInt("0x123213"));
-// console.log(Number.parseInt("0X123213"));
-// console.log(Number.parseInt("1010101110"));
-
-// console.log(Number.parseInt("2312342", null));
-// console.log(Number.parseInt("2312342", NaN));
-// console.log(Number.parseInt("2312342", Infinity));
-// console.log(Number.parseInt("0x2312342", Infinity));
-
-// console.log(Number.parseInt("2312342", 100));
-// console.log();
-
-// //!
-// console.log(Number.parseInt("0x123213", 10));
-// console.log(Number.parseInt("0b123213")); //!
-
-// console.log(Number.parseInt("0x123213", 0));
-// console.log(Number.parseInt("0x123213", null));
-
-// console.log(Number.parseInt("2312342", 1.1232));
-// console.log(Number.parseInt("2312342", 1.1));
-
-//levaraging js type conversion,
-
 function sliceStart(str, startIdx) {
   let result = "";
   const strLength = str.length;
@@ -181,22 +156,31 @@ const testData = [
 ];
 
 function test(arr) {
+  const greenANSI = "\x1b[32m%s\x1b[0m";
+  const redANSI = "\x1b[31m%s\x1b[0m";
+  const terminator = "-------------------------------";
   const arrLength = arr.length;
-  for (let i = 0; i < arrLength; i++) {
-    const { s: str, r: radix } = arr[i];
+
+  arr.forEach(({ s: str, r: radix }) => {
+    console.time("DEF");
     const defaultRes = Number.parseInt(str, radix);
+    console.timeEnd("DEF");
+
+    console.time("MY");
     const myRes = parseInteger(str, radix);
+    console.timeEnd("MY");
+
     console.log(
       `${
         defaultRes === myRes ||
         (Number.isNaN(defaultRes) && Number.isNaN(myRes))
-          ? "\x1b[32m%s\x1b[0m"
-          : "\x1b[31m%s\x1b[0m"
+          ? greenANSI
+          : redANSI
       }`,
       `DEF ${defaultRes}, MY ${myRes}`
     );
-    // console.log(`DEF ${defaultRes}, MY ${myRes}`);
-  }
+    console.log(terminator);
+  });
 }
 
 console.log();
