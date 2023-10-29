@@ -1,6 +1,6 @@
 // Number.prototype.toExponential()
 
-// The toExponential() method of Number values returns a string representing this number in exponential notation.
+// The toExponential() method of Number values returns a string representing this number in exponential notation. 1- 1000
 
 console.log(Number.parseFloat(123456).toExponential());
 console.log(Number.parseFloat(123456).toExponential(2));
@@ -11,6 +11,8 @@ try {
 } catch (e) {
   console.log(e.message);
 }
+
+// !
 console.log(Number.parseFloat(123456).toExponential(NaN));
 console.log(Number.parseFloat(123456).toExponential(undefined));
 console.log(Number.parseFloat(123456).toExponential(null));
@@ -20,8 +22,14 @@ console.log(Number.parseFloat(123456).toExponential(2, 1232));
 
 const numObj = 77.1234;
 
+console.log();
 console.log(numObj.toExponential()); // 7.71234e+1
 console.log(numObj.toExponential(4)); // 7.7123e+1
 console.log(numObj.toExponential(2)); // 7.71e+1
 console.log((77.1234).toExponential()); // 7.71234e+1
 console.log((77).toExponential()); // 7.7e+1
+console.log();
+
+console.log((13439249302).toExponential(100));
+console.log((13439249302).toExponential(10));
+console.log((13439249302).toExponential(20));

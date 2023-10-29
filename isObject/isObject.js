@@ -30,6 +30,9 @@ console.log(isObject(Object.create(null)));
 console.log(isObject(() => {}));
 console.log();
 
+const strObj = new String("hsdfjf"); // String with new returns a string wrapper object.
+console.log(isObject(strObj));
+
 // argument: data convert to string is forbidden
 // prototype.toString is forbidden
 // class Bohdan {}i

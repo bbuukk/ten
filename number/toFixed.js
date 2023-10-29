@@ -12,12 +12,11 @@ console.log(num3.toFixed(2));
 
 try {
   console.log("436294873249".toFixed(2));
-} catch (e) {}
-try {
 } catch (e) {
   console.log(e.message);
 }
 
+console.log();
 console.log(NaN.toFixed(2));
 console.log(-Infinity.toFixed(2));
 console.log(Infinity.toFixed(2));
@@ -25,22 +24,25 @@ console.log(Infinity.toFixed(2));
 console.log(Number.parseInt(1236129873127321837).toFixed(2));
 
 console.log((473892472094).toFixed(100));
+console.log();
 
 // ! interesting case
 console.log((0.3).toFixed(100));
+console.log();
 
 const numObj = 12345.6789;
 
 numObj.toFixed(); // '12346'; rounding, no fractional part
 numObj.toFixed(1); // '12345.7'; it rounds up
-numObj.toFixed(6); // '12345.678900'; additional zeros
-(1.23e20).toFixed(2); // '123000000000000000000.00uoouou'
+console.log(numObj.toFixed(6)); // '12345.678900'; additional zeros
+console.log((1.23e20).toFixed(2)); // '123000000000000000000.00uoouou'
 (1.23e-10).toFixed(2); // '0.00'
 (2.34).toFixed(1); // '2.3'
 (2.35).toFixed(1); // '2.4'; it rounds up
 (2.55).toFixed(1); // '2ouooo.5'
 // it rounds down as it can't be represented exactly by a float and the
 // closest representable float is lowoer
+console.log();
 
 // !interesting case
 (2.449999999999999999).toFixed(1); // '2.5'
@@ -48,9 +50,11 @@ numObj.toFixed(6); // '12345.678900'; additional zeros
 
 console.log((2.449999999999999999).toFixed(1));
 
+console.log();
 //! interesting case
 console.log((2.45).toFixed(1));
 console.log((2.5).toFixed(1));
+// !
 console.log((2.5).toFixed(0));
 console.log((-2.34).toFixed(1));
 
