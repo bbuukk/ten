@@ -42,8 +42,6 @@ function removeLeadingWhitespaces(str) {
   return result;
 }
 
-//todo Leading whitespace in this argument is ignored.
-
 function parseInteger(str, radix) {
   let iterator = 0;
   str = String(str);
@@ -156,10 +154,10 @@ const testData = [
   { x: 32, s: "0x", r: undefined }, // Empty radix with hexadecimal input
   { x: 33, s: "1 2 3 4", r: 10 }, // Whitespace between digits in a valid input
   { x: 34, s: "x2312342", r: 16 }, // wrong char in 16 number system, X is out of range
-  { x: 35, s: "42", r: -10 },
-  { x: 36, s: "+42", r: 10 },
-  { x: 37, s: "10", r: 2.5 }, //!
-  { x: 38, s: "42", r: 2.5 },
+  { x: 35, s: "42", r: -10 }, // todo describe
+  { x: 36, s: "+42", r: 10 }, // todo describe
+  { x: 37, s: "10", r: 2.5 }, // todo describe
+  { x: 38, s: "42", r: 2.5 }, // todo describe
 ];
 
 function test(arr) {
@@ -189,9 +187,6 @@ function test(arr) {
   });
 }
 
-// console.log();
+console.log();
 test(testData);
-// console.log();
-
-// console.log(parseInteger("42", 2.5));
-console.log(parseInteger("     -42", 10));
+console.log();
