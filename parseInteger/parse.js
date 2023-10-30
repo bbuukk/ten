@@ -45,16 +45,8 @@ function removeLeadingWhitespaces(str) {
 //todo Leading whitespace in this argument is ignored.
 
 function parseInteger(str, radix) {
-  str = String(str);
-  str = removeLeadingWhitespaces(str);
+  str = removeLeadingWhitespaces(String(str));
 
-  let negative = false;
-  if (str[0] === "-") {
-    negative = true;
-    str = sliceStart(str, 1);
-  }
-
-  //todo check for bugs
   if (radix === 16 || !radix) {
     if (str[0] === "0" && str[1].toUpperCase() === "X") {
       radix = 16;
@@ -62,10 +54,32 @@ function parseInteger(str, radix) {
     }
   }
 
-  radix = (radix !== Infinity && radix !== -Infinity && radix) || 10;
+  if (radix === Infinity || radix === -Infinity || !radix) {
+    radix = 10;
+  }
 
   if (typeof radix !== "number" || radix < 2 || radix > 36) {
     return NaN;
+  }
+
+  //floor radix
+  radix -= radix % 1;
+
+  // let negative = false;
+  // if (str[0] === "-") {
+  //   negative = true;
+  //   str = sliceStart(str, 1);
+  // }
+
+  // if (str[0] === "+") {
+  //   str = sliceStart(str, 1);
+  // }
+
+  let iterator = 0;
+  let sign = 1;
+  if (str[0] === "+" || str[0] === "-") {
+    sign = str[0] === "-" ? -1 : 1;
+    iterator++;
   }
 
   const lowerNumberBound = "0".charCodeAt(0);
@@ -75,9 +89,8 @@ function parseInteger(str, radix) {
   const upperLetterBound = lowerLetterBound + radix - 11;
 
   const strLength = str.length;
-
   let validStr = "";
-  for (let i = 0; i < strLength; i++) {
+  for (let i = iterator; i < strLength; i++) {
     const ch = str[i];
     const codePoint = ch.toUpperCase().charCodeAt(0);
     if (codePoint >= lowerNumberBound && codePoint <= upperNumberBound) {
@@ -100,7 +113,7 @@ function parseInteger(str, radix) {
       value = value * radix ** (validStrLength - i - 1);
       number += value;
     } else if (codePoint >= lowerLetterBound && codePoint <= upperLetterBound) {
-      let value = codePoint - lowerLetterBound + 10; // todo make adequate comment adding 10 cuz we need soo
+      let value = codePoint - lowerLetterBound + 10;
       value = value * radix ** (validStrLength - i - 1);
       number += value;
     } else {
@@ -108,60 +121,63 @@ function parseInteger(str, radix) {
     }
   }
 
-  if (negative) {
-    number = -number;
-  }
+  // if (negative) {
+  //   number = -number;
+  // }
 
-  return number ?? NaN;
+  return (number ?? NaN) * sign;
 }
 
 //test cases
+
 const testData = [
-  { s: "123", r: undefined }, // assigns 10 to falsy radix
-  { s: "123", r: NaN }, // assigns 10 to falsy radix
-  { s: "123", r: null }, // assigns 10 to falsy radix
-  { s: "123", r: Infinity }, // assigns 10 to falsy radix
-  { s: "123", r: -Infinity }, // assigns 10 to falsy radix
-  { s: "123", r: 10 }, // radix 10
-  { s: "100", r: 2 }, // radix is 2
-  { s: "100", r: 8 }, // radix is 8
-  { s: "100", r: 16 }, // radix is 16
-  { s: "0x100", r: undefined }, // radix is 16, no letters
-  { s: "0xF", r: undefined }, // radix is 16,  with letters
-  { s: "0x100", r: 199 }, // radix is out of range
-  { s: "0x100F", r: 8 }, // wrong radix
-  { s: "1050F2030", r: 10 }, //  char from other number system
-  { s: "123abc456", r: 10 }, //  char from other number system
-  { s: "3.14", r: 10 }, //  char from other number system
-  { s: "   42  is a number", r: 10 }, //  char from other   number system
-  { s: "", r: 10 }, // str is empty
-  { s: "         ", r: 10 }, // str is filled with whitespaces
-  { s: "0b123213", r: 10 }, // using 0b binary notation
-  { s: "10a", r: 10 }, // letters in decimal system
-  { s: "123456789012345678901234567890", r: 10 }, // Very large number
-  { s: "-42", r: 10 }, // Negative number
-  { s: "0", r: 10 }, // Zero value
-  { s: "123  ", r: 10 }, // Whitespace at the end
-  { s: "12 34", r: 10 }, // Whitespace in the middle
-  { s: "12-34", r: 10 }, // Invalid character (-) for a positive integer
-  { s: "42", r: 2.5 }, // Non-integer radix
-  { s: "   -42", r: 10 }, // Whitespace and negative number
-  { s: "0x1Ab", r: 16 }, // Mixed case hexadecimal input
-  { s: "$100", r: 36 }, // Non-alphanumeric characters in radix 36
-  { s: "0x0x10", r: 16 }, // Multiple radix prefixes
-  { s: "0x", r: undefined }, // Empty radix with hexadecimal input
-  { s: "1 2 3 4", r: 10 }, // Whitespace between digits in a valid input
-  { s: "x2312342", r: 16 }, // wrong char in 16 number system, X is out of range
-  { s: "42", r: -10 },
+  { x: 0, s: "123", r: undefined }, // assigns 10 to falsy radix
+  { x: 1, s: "123", r: NaN }, // assigns 10 to falsy radix
+  { x: 2, s: "123", r: null }, // assigns 10 to falsy radix
+  { x: 3, s: "123", r: Infinity }, // assigns 10 to falsy radix
+  { x: 4, s: "123", r: -Infinity }, // assigns 10 to falsy radix
+  { x: 5, s: "123", r: 10 }, // radix 10
+  { x: 6, s: "100", r: 2 }, // radix is 2
+  { x: 7, s: "100", r: 8 }, // radix is 8
+  { x: 8, s: "100", r: 16 }, // radix is 16
+  { x: 9, s: "0x100", r: undefined }, // radix is 16, no letters
+  { x: 10, s: "0xF", r: undefined }, // radix is 16,  with letters
+  { x: 11, s: "0x100", r: 199 }, // radix is out of range
+  { x: 12, s: "0x100F", r: 8 }, // wrong radix
+  { x: 13, s: "1050F2030", r: 10 }, //  char from other number system
+  { x: 14, s: "123abc456", r: 10 }, //  char from other number system
+  { x: 15, s: "3.14", r: 10 }, //  char from other number system
+  { x: 16, s: "   42  is a number", r: 10 }, //  char from other   number system
+  { x: 17, s: "", r: 10 }, // str is empty
+  { x: 18, s: "         ", r: 10 }, // str is filled with whitespaces
+  { x: 19, s: "0b123213", r: 10 }, // using 0b binary notation
+  { x: 20, s: "10a", r: 10 }, // letters in decimal system
+  { x: 21, s: "123456789012345678901234567890", r: 10 }, // Very large number
+  { x: 22, s: "-42", r: 10 }, // Negative number
+  { x: 23, s: "0", r: 10 }, // Zero value
+  { x: 24, s: "123  ", r: 10 }, // Whitespace at the end
+  { x: 25, s: "12 34", r: 10 }, // Whitespace in the middle
+  { x: 26, s: "12-34", r: 10 }, // Invalid character (-) for a positive integer
+  { x: 27, s: "42", r: 2.5 }, // Non-integer radix
+  { x: 28, s: "   -42", r: 10 }, // Whitespace and negative number
+  { x: 29, s: "0x1Ab", r: 16 }, // Mixed case hexadecimal input
+  { x: 30, s: "$100", r: 36 }, // Non-alphanumeric characters in radix 36
+  { x: 31, s: "0x0x10", r: 16 }, // Multiple radix prefixes
+  { x: 32, s: "0x", r: undefined }, // Empty radix with hexadecimal input
+  { x: 33, s: "1 2 3 4", r: 10 }, // Whitespace between digits in a valid input
+  { x: 34, s: "x2312342", r: 16 }, // wrong char in 16 number system, X is out of range
+  { x: 35, s: "42", r: -10 },
+  { x: 36, s: "+42", r: 10 },
+  { x: 37, s: "10", r: 2.5 }, //!
+  { x: 38, s: "42", r: 2.5 },
 ];
 
 function test(arr) {
   const greenANSI = "\x1b[32m%s\x1b[0m";
   const redANSI = "\x1b[31m%s\x1b[0m";
   const terminator = "-------------------------------";
-  const arrLength = arr.length;
 
-  arr.forEach(({ s: str, r: radix }) => {
+  arr.forEach(({ s: str, r: radix }, x) => {
     console.time("DEF");
     const defaultRes = Number.parseInt(str, radix);
     console.timeEnd("DEF");
@@ -171,7 +187,7 @@ function test(arr) {
     console.timeEnd("MY");
 
     console.log(
-      `${
+      `|--- ${x}: ${
         defaultRes === myRes ||
         (Number.isNaN(defaultRes) && Number.isNaN(myRes))
           ? greenANSI
@@ -183,8 +199,9 @@ function test(arr) {
   });
 }
 
-console.log();
+// console.log();
 test(testData);
-console.log();
+// console.log();
 
-// console.log(parseInteger("2312342", -10));
+// console.log(parseInteger("42", 2.5));
+// console.log(parseInteger("10", 2.5));
