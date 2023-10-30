@@ -2,8 +2,6 @@
 // - 1 цикл for
 // - charCodes
 
-//! does not work
-
 function parseBalance(text) {
   const lowerBound = "0".codePointAt(0);
   const upperBound = "9".codePointAt(0);
