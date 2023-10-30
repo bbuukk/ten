@@ -45,7 +45,13 @@ function removeLeadingWhitespaces(str) {
 //todo Leading whitespace in this argument is ignored.
 
 function parseInteger(str, radix) {
-  str = removeLeadingWhitespaces(String(str));
+  let iterator = 0;
+  str = String(str);
+
+  //remove leading whitespaces
+  while (str[iterator] === " ") {
+    iterator++;
+  }
 
   if (radix === 16 || !radix) {
     if (str[0] === "0" && str[1].toUpperCase() === "X") {
@@ -62,23 +68,11 @@ function parseInteger(str, radix) {
     return NaN;
   }
 
-  //floor radix
-  radix -= radix % 1;
+  radix -= radix % 1; // (floor) remove fractional part from radix
 
-  // let negative = false;
-  // if (str[0] === "-") {
-  //   negative = true;
-  //   str = sliceStart(str, 1);
-  // }
-
-  // if (str[0] === "+") {
-  //   str = sliceStart(str, 1);
-  // }
-
-  let iterator = 0;
   let sign = 1;
-  if (str[0] === "+" || str[0] === "-") {
-    sign = str[0] === "-" ? -1 : 1;
+  if (str[iterator] === "+" || str[iterator] === "-") {
+    sign = str[iterator] === "-" ? -1 : 1;
     iterator++;
   }
 
@@ -120,10 +114,6 @@ function parseInteger(str, radix) {
       break;
     }
   }
-
-  // if (negative) {
-  //   number = -number;
-  // }
 
   return (number ?? NaN) * sign;
 }
@@ -204,4 +194,4 @@ test(testData);
 // console.log();
 
 // console.log(parseInteger("42", 2.5));
-// console.log(parseInteger("10", 2.5));
+console.log(parseInteger("     -42", 10));

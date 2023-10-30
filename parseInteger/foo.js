@@ -27,4 +27,4 @@ let number = null;
 const sign = 1;
 number &&= number * sign;
 
-console.log(number);
+console.log(number || NaN);
