@@ -158,6 +158,23 @@ const testData = [
   { x: 36, s: "+42", r: 10 }, // todo describe
   { x: 37, s: "10", r: 2.5 }, // todo describe
   { x: 38, s: "42", r: 2.5 }, // todo describe
+  { x: 39, s: "314e-2", r: 10 }, // todo describe
+  { x: 40, s: "0.0314E+2", r: 10 }, // todo describe
+  { x: 41, s: "15e2", r: 10 }, // todo describe
+  { x: 42, s: "-15e1", r: 10 }, // todo describe
+  { x: 43, s: "0e0", r: 16 }, // todo describe
+  { x: 44, s: "-15.1", r: 10 }, // todo describe
+  { x: 45, s: "-15.99", r: 10 }, // todo describe
+  { x: 46, s: "1e7", r: 10 }, // todo describe
+  { x: 47, s: "Infinity", r: 10 }, // todo describe
+  { x: 48, s: "-Infinity", r: 10 }, // todo describe
+  { x: 49, s: "NaN", r: 10 }, // todo describe
+  { x: 50, s: 72349, r: 10 }, // todo describe
+  { x: 51, s: NaN, r: 10 }, // todo describe
+  { x: 52, s: Infinity, r: 10 }, // todo describe
+  { x: 53, s: undefined, r: 10 }, // todo describe
+  { x: 54, s: "0x", r: undefined }, // todo describe
+  { x: 32, s: "0x", r: 10 }, // Empty radix with hexadecimal input
 ];
 
 function test(arr) {
