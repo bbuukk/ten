@@ -1,5 +1,7 @@
 // Number.parseInt()
 
+import { redANSI, terminator } from "../variables.mjs";
+
 // The Number.parseInt() static method parses a string argument and returns an integer of the specified radix or base.
 
 // Parameters
@@ -15,23 +17,44 @@
 
 //when encounters first character of ouf current redix system it stops and evaluetes the number, not throwing an error
 
-console.log(Number.parseInt("123"));
-console.log(Number.parseInt("0xF", 16));
-console.log(Number.parseInt("0xF"));
-console.log();
+const args = [
+  { a: NaN, i: 0, r: 0 },
+  { a: "Hello" - 42, i: 0, r: 0 },
+  { a: Infinity, i: 0, r: 0 },
+  { a: -Infinity, i: 0, r: 0 },
+  { a: undefined, i: 0, r: 0 },
+  { a: null, i: 1, r: 0 }, //!imp
+  { a: 5.0000000000000001, i: 0, r: 0 },
+  { a: 0.00000000000000000000000000000000000001, i: 0, r: 0 },
+  { a: "13y48r", i: 1, r: 0 },
+  { a: "1e308", i: 0, r: 0 },
+  { a: "10", i: 0, r: 0 },
+  { a: "10.1", i: 0, r: 0 },
+  { a: "X", i: 1, r: 0 },
+  { a: "0XF", i: 1, r: 0 },
+  { a: "0b10", i: 1, r: 0 },
+  { a: " ", i: 0, r: 0 },
+  { a: "3,14", i: 1, r: 0 },
+  { a: "0.1111111111111111111111111111111111111111111111", i: 0, r: 0 },
+  { a: "          1032974  ", i: 0, r: 0 },
+  { a: "          1032974", i: 0, r: 0 },
+  { a: "    0.11 01234 ", i: 1, r: 0 },
+  { a: "0xF", i: 1, r: 199 },
+  { a: "0xF", i: 1, r: 8 },
+  { a: "0123", i: 1, r: 2 },
+  { a: "0X0123", i: 1, r: undefined },
+  { a: "0b0123", i: 1, r: undefined },
+  { a: "12134", i: 1, r: Infinity }, //!imp
+];
 
-// ! interesting case
-console.log(Number.parseInt("0xF", 199));
-console.log(Number.parseInt("0xF", 35));
-console.log(Number.parseInt("0xF", 20));
-console.log(Number.parseInt("0xF", 8));
-console.log(Number.parseInt("0xF", 2));
-console.log(Number.parseInt("0123123", 2));
-console.log(Number.parseInt("0101011", 2));
-console.log();
+args.forEach(({ a: arg, r: radix, i: isImportant }, index) => {
+  const parsed = Number.parseInt(arg, radix);
 
-console.log(Number.parseInt("3.14", 10)); // 3
-console.log(Number.parseInt("123abc456", 10)); // 123
-console.log(Number.parseInt("", 10)); // NaN
-console.log(Number.parseInt("   42  is a number", 10)); // 42
-console.log(Number.parseInt("123", 37)); // NaN
+  console.log(terminator);
+  console.log(
+    isImportant ? `${redANSI}` : "",
+    `${index}. → ARG: ${arg}, RDX: ${radix}`
+  );
+  console.log(parsed);
+});
+console.log(terminator);

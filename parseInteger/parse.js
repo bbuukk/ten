@@ -3,7 +3,7 @@
 // read logic of wrting such functoins
 // check perfomance of your-self written methods
 
-import { greenANSI, redANSI } from "../variables.mjs";
+import { greenANSI, redANSI, terminator } from "../variables.mjs";
 
 // Number.parseInt()
 // The Number.parseInt() static method parses a string argument and returns an integer of the specified radix or base.
@@ -180,8 +180,6 @@ const testData = [
 ];
 
 function test(arr) {
-  const terminator = "-------------------------------";
-
   arr.forEach(({ s: str, r: radix }, x) => {
     console.time("DEF");
     const defaultRes = Number.parseInt(str, radix);

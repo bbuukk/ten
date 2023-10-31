@@ -1,64 +1,60 @@
+import { redANSI, terminator } from "../variables.mjs";
+
 // Number.prototype.toFixed()
 
 // The toFixed() method of Number values formats this number using fixed-point notation.
 
-const num1 = 77.1284;
-const num2 = 77.1234;
-const num3 = 77;
+const args = [
+  { a: NaN, n: 0.3, i: 0 },
+  { a: "Hello", n: 0.3, i: 1 }, // counts as 0
+  { a: 231239127, n: 0.3, i: 1 },
+  { a: 0.3, n: 23432, i: 1 }, // counts as 0
+  { a: -1, n: 0.3, i: 1 },
+  { a: Infinity, n: 0.3, i: 1 },
+  { a: -Infinity, n: 0.3, i: 1 },
+  { a: undefined, n: 0.3, i: 0 }, // count as 0
+  { a: null, n: 0.3, i: 0 },
+  { a: 100, n: 0.3, i: 0 },
+  { a: "", n: 0.3, i: 11 },
+  { a: 1.2124, n: 0.3, i: 1 }, //! neglect fractional part
+  { a: 12.2124, n: 0.3, i: 1 }, //! same as above
+  { a: 0.00000000000000000000001, n: 1.3, i: 1 },
+  { a: 1.000000001, n: 0.3, i: 1 },
+  { a: 1, n: 0.3, i: 1 },
+  { a: 10, n: 0.3, i: 1 },
+  { a: 0, n: 0.3, i: 1 },
+  { a: -0, n: 0.3, i: 1 },
+  { a: {}, n: 0.3, i: 1 },
+  { a: "12HE", n: 1.3, i: 1 },
+  { a: 12n, n: 0.3, i: 1 }, //!imp
+  //////
+  { a: 50, n: 6.02 * 10 ** 23, i: 1 },
+  ///////
+  // it rounds up as it's less than Number.EPSILON away from 2.45.
+  // This literal actually encodes the same number value as 2.45
+  { a: 1, n: 2.449999999999999999, i: 0 },
+  { a: 1, n: 2.45, i: 0 },
+  { a: 1, n: 2.5, i: 0 },
+  { a: 1, n: -2.34, i: 0 },
+  { a: 1, n: -2.35, i: 0 },
+  { a: 0, n: 2.5, i: 0 },
+  /////
+  { a: 1, n: 2.35, i: 0 },
+  { a: 1, n: 2.34, i: 0 },
+  /////
+  { a: 2, n: 1.23e-10, i: 0 },
+];
 
-console.log(num1.toFixed(2));
-console.log(num2.toFixed(2));
-console.log(num3.toFixed(2));
+args.forEach(({ a: arg, n: number, i: isImportant }, index) => {
+  try {
+    console.log(terminator);
+    console.log(isImportant ? `${redANSI}` : "", `${index}. → ARG: ${arg}`);
 
-try {
-  console.log("436294873249".toFixed(2));
-} catch (e) {
-  console.log(e.message);
-}
+    const toExponential = number.toFixed(arg);
 
-console.log();
-console.log(NaN.toFixed(2));
-console.log(-Infinity.toFixed(2));
-console.log(Infinity.toFixed(2));
-
-console.log(Number.parseInt(1236129873127321837).toFixed(2));
-
-console.log((473892472094).toFixed(100));
-console.log();
-
-// ! interesting case
-console.log((0.3).toFixed(100));
-console.log();
-
-const numObj = 12345.6789;
-
-numObj.toFixed(); // '12346'; rounding, no fractional part
-numObj.toFixed(1); // '12345.7'; it rounds up
-console.log(numObj.toFixed(6)); // '12345.678900'; additional zeros
-console.log((1.23e20).toFixed(2)); // '123000000000000000000.00uoouou'
-(1.23e-10).toFixed(2); // '0.00'
-(2.34).toFixed(1); // '2.3'
-(2.35).toFixed(1); // '2.4'; it rounds up
-(2.55).toFixed(1); // '2ouooo.5'
-// it rounds down as it can't be represented exactly by a float and the
-// closest representable float is lowoer
-console.log();
-
-// !interesting case
-(2.449999999999999999).toFixed(1); // '2.5'
-(2.449999999999999999).toFixed(1); // '2.5'
-
-console.log((2.449999999999999999).toFixed(1));
-
-console.log();
-//! interesting case
-console.log((2.45).toFixed(1));
-console.log((2.5).toFixed(1));
-// !
-console.log((2.5).toFixed(0));
-console.log((-2.34).toFixed(1));
-
-// it rounds up as it's less than Number.EPSILON away from 2.45.
-// This literal actually encodes the same number value as 2.45
-
-(6.02 * 10 ** 23).toFixed(50); // 6.019999999999999e+23; large numbers still use exponential notation
+    console.log(toExponential);
+  } catch (e) {
+    console.log(redANSI, `ERR: ${e.message}`);
+  }
+});
+console.log(terminator);
