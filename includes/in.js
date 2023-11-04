@@ -20,6 +20,8 @@ function includes(text, matchStr, index = 0) {
 
   if (matchStr === "") {
     return true;
+  } else if (text === matchStr) {
+    return true;
   }
 
   let result = false;
@@ -28,6 +30,7 @@ function includes(text, matchStr, index = 0) {
   for (let i = index, m = 0; i < textLength; i++) {
     if (matchStr.length === m) {
       result = true;
+      break;
     }
 
     const ch = text[i];
@@ -80,7 +83,8 @@ const args = [
   { s: "fhsdjfsh", m: new RegExp(""), p: 0, i: 0 },
   { s: "fhsdjfsh", m: new RegExp(""), p: 0, i: 0 },
   {},
-  //regex usage
+  { s: "fhsdjfsh", m: "fhsdjfsh", p: 0, i: 0 },
+  { s: "fhsdjfsh", m: "fhsdjfshj", p: 0, i: 0 },
 ];
 
 args.forEach(({ s: str, m: matchStr, p: position, i: isImportant }, index) => {
@@ -91,11 +95,14 @@ args.forEach(({ s: str, m: matchStr, p: position, i: isImportant }, index) => {
 
       console.log(terminator);
 
+      console.time("DEF");
       try {
         defIncludes = str.includes(matchStr, position).toString().toUpperCase();
       } catch (e) {
         console.log(redANSI, `DEF ERR: ${e.message}`);
       }
+      console.timeEnd("DEF");
+      console.time("MY");
       try {
         myIncludes = includes(str, matchStr, position)
           ?.toString()
@@ -103,6 +110,8 @@ args.forEach(({ s: str, m: matchStr, p: position, i: isImportant }, index) => {
       } catch (e) {
         console.log(blueANSI, `MY ERR: ${e.message}`);
       }
+      console.timeEnd("MY");
+
       console.log(
         isImportant ? `${redANSI}` : "",
         `${index}. → STR: ${str}, MTCH: ${matchStr}, POS: ${position}`

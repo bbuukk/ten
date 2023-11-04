@@ -25,10 +25,12 @@ function split(text, separator, limit = text.length) {
   }
 
   // Omitting separator or passing undefined causes split() to return an array with the calling string as a single element. All values that are not undefined or objects with a @@split method are coerced to strings.
-  if (separator === undefined) {
+  if (separator === undefined || separator === null) {
     return [text];
   } else if (separator === text) {
     return ["", ""];
+  } else if (separator.length >= text.length) {
+    return [text];
   } else if (!(typeof separator[Symbol.split] === "function")) {
     separator = String(separator);
   }
@@ -42,16 +44,20 @@ function split(text, separator, limit = text.length) {
   const textLength = text.length;
   for (let i = 0, j = 0; i <= textLength; i++) {
     const ch = text[i];
-    if (!ch || parsedSep === separator) {
+    if (!ch) {
       result.push(word);
-      j = 0;
-      word = "";
-      parsedSep = "";
     }
 
     if (ch === separator[j]) {
       parsedSep += ch;
       ++j;
+
+      if (parsedSep === separator) {
+        result.push(word);
+        j = 0;
+        word = "";
+        parsedSep = "";
+      }
     } else {
       word += parsedSep;
       word += ch;
@@ -73,6 +79,7 @@ const separator = {
 const args = [
   { s: "Hello my name is Bohdan", sp: " ", l: undefined, i: 0 },
   { s: "Hello my name is Bohdan", sp: ",", l: undefined, i: 0 },
+  { s: "Hello my name is Bohdan", sp: ",", l: undefined, i: 0 },
   {
     s: "Hello my name is Bohdan",
     sp: "Hello my name is Bohdan",
@@ -80,48 +87,53 @@ const args = [
     i: 0,
   },
   { s: "foo", sp: "o", l: undefined, i: 0 },
+  { s: "foo", sp: "f", l: undefined, i: 0 },
+  { s: "foo", sp: "fo", l: undefined, i: 0 },
+  { s: "foo", sp: "fooooooooooooooo", l: undefined, i: 0 },
+  { s: "foo", sp: "ooo", l: undefined, i: 0 },
   {},
+  { s: "foo", sp: null, l: undefined, i: 0 },
+  { s: "foo", sp: undefined, l: undefined, i: 0 },
+  {},
+  // { s: "foo", sp: new RegExp("o"), l: undefined, i: 0 }, //! not implemented
+  { s: "foo", sp: separator, l: undefined, i: 0 },
 ];
 
 args.forEach(({ s: str, sp: separator, l: limit, i: isImportant }, index) => {
-  try {
-    if (isImportant !== undefined) {
-      let defSplit = null;
-      let mySplit = null;
+  if (isImportant !== undefined) {
+    let defSplit = null;
+    let mySplit = null;
 
-      console.log(terminator);
-
-      try {
-        defSplit = str.split(separator, limit);
-      } catch (e) {
-        console.log(redANSI, `DEF ERR: ${e.message}`);
-      }
-      try {
-        mySplit = split(str, separator, limit);
-      } catch (e) {
-        console.log(blueANSI, `MY ERR: ${e.message}`);
-      }
-      const isImp = isImportant ? `${red}→${flash}` : `${black}→${flash}`;
-      console.log(
-        "\n",
-        `${isImp} STR: "${str}"\n`,
-        `${isImp} SEP: "${separator}"\n`,
-        `${isImp} LIM: ${limit}\n`
-      );
-
-      console.log(
-        isEqual(defSplit, mySplit) ? green : yellow,
-        "result:",
-        flash
-      );
-      console.log("DEF: ", defSplit);
-      console.log("MY:  ", mySplit);
-    } else {
-      console.log(`${terminator}\n\n${terminator}\n`);
-    }
-  } catch (e) {
     console.log(terminator);
-    console.log(redANSI, `ERR: ${e.message}`);
+
+    console.time("DEF");
+    try {
+      defSplit = str.split(separator, limit);
+    } catch (e) {
+      console.log(redANSI, `DEF ERR: ${e.message}`);
+    }
+    console.timeEnd("DEF");
+    console.time("MY");
+    try {
+      mySplit = split(str, separator, limit);
+    } catch (e) {
+      console.log(blueANSI, `MY ERR: ${e.message}`);
+    }
+    console.timeEnd("MY");
+
+    const isImp = isImportant ? `${red}→${flash}` : `${black}→${flash}`;
+    console.log(
+      "\n",
+      `${isImp} STR: "${str}"\n`,
+      `${isImp} SEP: "${separator}"\n`,
+      `${isImp} LIM: ${limit}\n`
+    );
+
+    console.log(isEqual(defSplit, mySplit) ? green : yellow, "result:", flash);
+    console.log("DEF: ", defSplit);
+    console.log("MY:  ", mySplit);
+  } else {
+    console.log(`${terminator}\n\n${terminator}\n`);
   }
 });
 console.log(terminator);
