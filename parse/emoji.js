@@ -1,77 +1,84 @@
-//todo make support for not caring for cases in emojis and names
-
-function countEmoji(message, emoji) {
+// todo make function case-insensitive
+function countEmoji(msg, emoji) {
   let result = {};
 
-  const lessThan = "<".charCodeAt(0);
-  const whitespace = " ".charCodeAt(0);
-  const semicolon = ":".charCodeAt(0);
+  const lessThan = "<";
+  const moreThan = ">";
+  const whitespace = " ";
+  const semicolon = ":";
+  const slash = "/";
+  const at = "@";
 
-  //   const lowerBound = "0".codePointAt(0);
-  //   const upperBound = "9".codePointAt(0);
+  let parsedEmoji = "";
+  let count = 0;
 
-  let emojiParsed = null;
-  let balance = null;
-  let name = null;
+  // while we don't encounter new emoji, we don't reset names variable
+  let names = [];
+  let name = false;
 
-  const textLength = text.length;
-  for (let i = 0; i <= textLength; ++i) {
-    const ch = text[i];
-    const codePoint = ch?.charCodeAt(0);
+  for (let i = msg.length; --i; ) {
+    const ch = msg[i];
+    // const ch = ch.charCodeAt(0);
 
-    if (codePoint === lessThan || !codePoint) {
-      if (name) {
-        result[name] = balance;
-      }
-
-      balance = null;
-      i++; //skipping @
-      name = "";
-      continue;
+    // to start parsing emoji
+    if (ch === semicolon) {
+      parsedEmoji += ch;
     }
 
-    if (emojiParsed) {
-      emojiParsed += ch;
-      if (codePoint === semicolon) {
-        if ((emojiParsed = emoji)) {
-          balance += 1;
-          emojiParsed = null;
-        }
-      }
+    // parsing emoji
+    if (parsedEmoji) {
+      parsedEmoji += ch;
     }
 
-    if (balance !== null) {
-      if (codePoint === semicolon) {
-        emojiParsed = ch;
-      }
-      continue;
+    // parsed one valid emoji
+    if (parsedEmoji === emoji) {
+      ++count;
+      parsedEmoji = "";
+
+      // if we encountered new valid emoji
+      // reset count
+      // rest names
+      count = 0;
+      names = [];
     }
 
-    if (name?.length >= 0) {
-      if (codePoint === whitespace) {
-        result[name] = result[name]; //init item in array, giving it undefined on first time
-        balance = 0;
-      } else {
-        name += ch;
-      }
+    // start parsing a name
+    // if out of idx is false because msg[i - 1] gives undefined
+    if (ch === moreThan && msg[i - 1] === slash) {
+      name = true;
+      names.push("");
+
+      ++i; //skipping slash char in next iteration of loop
+    }
+
+    //stop parsing a name
+    if (ch === at && msg[i - 1] === lessThan) {
+      name = false;
+
+      //todo trim name
+
+      // giving count to appropriate name in result object
+      result[names[names.length - 1]] ??= 0; // init prop on object if it is not yet
+      result[names[names.length - 1]] += count;
+    }
+
+    //parsing a name
+    if (name) {
+      //adding to last name encountered
+      names[names.length - 1] += ch;
     }
   }
+
   return result;
 }
 
-// expected result
-// {
-// kate: 1,
-// max: 2,
-// alisa: 2
-// }
+//return str with no whitespaces on start and end of it
+const trim = (str) => {
+  return str;
+};
 
-const text =
-  "<@Kate />:apple: <@Max /><@alisa /> :like: received:apple::apple:";
+const msg = "<@Kate />:apple: <@Max /><@alisa /> :like: received:apple::apple:";
 
-// const text =
-//   "Hello <@Kate />, you did your work well and I sent you 1000 USDT. <@Dmitrty /> was working at the weekend so I sent you 350 USDT. <@Max /> won 600 USDT";
-
-// ! assumptions
-// * giving emoij argument with semicolorns
-console.log(countEmoji(text, ":apple:"));
+// // ! assumptions
+// // * giving emoij argument with semicolorns
+console.log(countEmoji(msg, ":apple:"));
