@@ -172,6 +172,19 @@ const args = [
     em: "apple",
     i: 0,
   },
+  {
+    msg: ":apple: :apple:",
+    ex: {},
+    em: "apple",
+    i: 0,
+  },
+  {},
+  {
+    msg: "<@MANNNIe />:apple:adhfsfsdj<@Kate />dhfjs:apple: dhfjkds:apple:<@Max /><@alisa />:: :like: :: received:apple::apple:",
+    ex: { kate: 2, max: 2, alisa: 2, mannnie: 1 },
+    em: "apple",
+    i: 0,
+  },
 ];
 
 args.forEach(({ msg: message, em: emoji, ex: expected, i: isImportant }) => {
