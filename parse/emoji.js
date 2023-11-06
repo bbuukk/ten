@@ -138,17 +138,37 @@ const args = [
 
     i: 0,
   },
-  {},
-  //todo describe
   {
     msg: ":apple: :apple:  <@Kate />:apple: <@Max/>:apple: :apple: :apple:<@alisa /> :like: received:apple::apple: <@kate/> lalalal <@KATE / > :APPLE: :Apple: askdsahgjd <@gena /><@igor/ >",
     em: "apple",
     ex: { kate: 5, max: 3, alisa: 2, gena: 0, igor: 0 },
     i: 0,
   },
+  {},
+  //link of any length
   {
     msg: "<@Kate />:apple: <@Max/><@nick/><@gena/><@masha/><@dima/><@alisa /> you amazing girl :like: received:apple::apple:",
     ex: { kate: 1, alisa: 2, dima: 2, masha: 2, gena: 2, nick: 2, max: 2 },
+    em: "apple",
+    i: 0,
+  },
+  {},
+  //inconsistent input
+  {
+    msg: "<@Kate />",
+    ex: { kate: 0 },
+    em: "apple",
+    i: 0,
+  },
+  {
+    msg: "<@Kate /> :::::apple, :nsa:dhjfjsdfhjsdbjsdbjb <@Max/> :::::::apple::::: ",
+    ex: { kate: 1, max: 1 },
+    em: "apple",
+    i: 0,
+  },
+  {
+    msg: "<@Kate /> apple, :nsa:dhjfjsdfhjsdbjsdbjb <@Max/> :::::::apple::::: ",
+    ex: { kate: 1, max: 1 },
     em: "apple",
     i: 0,
   },
