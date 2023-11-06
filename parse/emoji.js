@@ -70,7 +70,7 @@ function countEmoji(msg, emoji) {
 
     // start parsing a nameBeingParsed
     // if out of idx is false because msg[i - 1] gives undefined
-    if (ch === moreThan && msg[i - 1] === slash) {
+    if (ch === moreThan) {
       //reset parsedEmoji and emojiBeingParsed
       parsedEmoji = "";
       emojiBeingParsed = false;
@@ -83,7 +83,7 @@ function countEmoji(msg, emoji) {
     }
 
     //stop parsing a nameBeingParsed
-    if (ch === at && msg[i - 1] === lessThan) {
+    if (ch === at) {
       nameBeingParsed = false;
 
       // giving count to appropriate nameBeingParsed in result object
@@ -97,7 +97,7 @@ function countEmoji(msg, emoji) {
     //parsing a nameBeingParsed
     if (nameBeingParsed) {
       //adding to last nameBeingParsed encountered, skipping whitespaces
-      if (ch !== whitespace) {
+      if (ch !== whitespace && ch !== slash) {
         names[names.length - 1] = ch + names[names.length - 1];
       }
     }
@@ -134,7 +134,7 @@ const args = [
   {
     msg: "<@Kate />:apple: <@Max/>:apple: :apple: :apple:<@alisa /> :like: received:apple::apple: <@kate/> lalalal <@KATE / > :apple: :apple: askdsahgjd",
     em: "apple",
-    ex: { kate: 1, max: 2, alisa: 2 },
+    ex: { kate: 5, max: 3, alisa: 2 },
 
     i: 0,
   },
@@ -143,12 +143,12 @@ const args = [
   {
     msg: ":apple: :apple:  <@Kate />:apple: <@Max/>:apple: :apple: :apple:<@alisa /> :like: received:apple::apple: <@kate/> lalalal <@KATE / > :APPLE: :Apple: askdsahgjd <@gena /><@igor/ >",
     em: "apple",
-    ex: { kate: 1, max: 2, alisa: 2 },
+    ex: { kate: 5, max: 3, alisa: 2, gena: 0, igor: 0 },
     i: 0,
   },
   {
     msg: "<@Kate />:apple: <@Max/><@nick/><@gena/><@masha/><@dima/><@alisa /> you amazing girl :like: received:apple::apple:",
-    ex: { kate: 1, max: 2, alisa: 2 },
+    ex: { kate: 1, alisa: 2, dima: 2, masha: 2, gena: 2, nick: 2, max: 2 },
     em: "apple",
     i: 0,
   },
