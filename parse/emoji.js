@@ -65,14 +65,15 @@ function countEmoji(msg, emoji) {
     // parsing emoji
     if (emojiBeingParsed) {
       parsedEmoji = ch + parsedEmoji;
-      continue;
+      //   continue;
     }
 
     // start parsing a nameBeingParsed
     // if out of idx is false because msg[i - 1] gives undefined
     if (ch === moreThan && msg[i - 1] === slash) {
-      //reset parsedEmoji
+      //reset parsedEmoji and emojiBeingParsed
       parsedEmoji = "";
+      emojiBeingParsed = false;
 
       nameBeingParsed = true;
       names.push("");
