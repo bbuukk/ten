@@ -22,7 +22,6 @@ console.log(maskedNumber);
 //     The length of the resulting string once the current str has been padded. If the value is less than or equal to str.length, then str is returned as-is.
 
 // * padString Optional
-
 //     The string to pad the current str with. If padString is too long to stay within the targetLength, it will be truncated from the end. The default value is the unicode "space" character (U+0020).
 
 //!

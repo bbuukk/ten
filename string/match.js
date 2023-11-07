@@ -21,7 +21,6 @@ console.log(found);
 //     If you don't give any parameter and use the match() method directly, you will get an Array with an empty string: [""], because this is equivalent to match(/(?:)/).
 
 // Return value
-
 // An Array whose contents depend on the presence or absence of the global (g) flag, or // !null if no matches are found.
 
 //     If the g flag is used, all results matching the complete regular expression will be returned, but capturing groups are not included.
@@ -78,7 +77,7 @@ console.log(found);
 }
 
 {
-  //!
+  //! important
   console.log("123".match("1.3")); // [ "123" ]
   //   This is a match because . in a regex matches any character. In order to make it only match specifically a dot character, you need to escape the input.
 
