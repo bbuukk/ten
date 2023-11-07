@@ -1,4 +1,4 @@
-# Spread operator ...
+# Spread operator
 
 Create a shallow copy of items in resulting iterable object such as string or array.
 
