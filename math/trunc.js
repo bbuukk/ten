@@ -15,6 +15,11 @@ console.log(Math.trunc(0.123));
 console.log(Math.trunc(-0.123));
 // Expected output: -0
 
+console.log(Math.trunc(Number.MAX_SAFE_INTEGER));
+console.log(Math.trunc(Number.MAX_SAFE_INTEGER + 1000000));
+console.log(Math.trunc(Number.MAX_SAFE_INTEGER + Number.MAX_VALUE));
+console.log(Math.trunc(Number.MAX_VALUE + Number.MAX_VALUE));
+
 Math.trunc(-Infinity); // -Infinity
 Math.trunc("-1.123"); // -1
 Math.trunc(-0.123); // -0
