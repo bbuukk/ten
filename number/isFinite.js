@@ -26,7 +26,7 @@ const args = [
   { a: 3.529032324322438e35, i: 0 },
   { a: 0.0000000000000000000000000000001, i: 0 },
   { a: 352903232432243843982942343743294638, i: 0 },
-  { a: Number.MAX_VALUE + 1000, i: 1 }, //! rounds down to infinity
+  { a: Number.MAX_VALUE + 1000, i: 1 }, //! rounds down to Number.MAX_VALUE
   { a: Number.MAX_VALUE + Number.MAX_VALUE, i: 1 }, //! number is too large to round down to infinity
   { a: Number.EPSILON, i: 0 },
   { a: 1e-31, i: 0 },

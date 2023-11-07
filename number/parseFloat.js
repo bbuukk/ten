@@ -19,14 +19,14 @@ const args = [
   { a: Infinity, i: 0 },
   { a: -Infinity, i: 0 },
   { a: undefined, i: 0 },
-  { a: null, i: 1 }, //!imp
+  { a: null, i: 1 }, //!imp, it parses to zero in Number.parseInteger()
   { a: 5.0000000000000001, i: 0 },
   { a: 0.00000000000000000000000000000000000001, i: 0 },
   { a: "13y48r", i: 1 },
   { a: "1e308", i: 0 },
   { a: "10", i: 0 },
   { a: "10.1", i: 0 },
-  { a: "X", i: 1 },
+  { a: "X", i: 1 }, //does not parse any num sys except decimal
   { a: "0XF", i: 1 },
   { a: "0b10", i: 1 },
   { a: " ", i: 0 },

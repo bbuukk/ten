@@ -7,13 +7,12 @@ import { redANSI, terminator } from "../variables.mjs";
 // Parameters
 
 // string
-
 //     The value to parse, coerced to a string. Leading whitespace in this argument is ignored.
-// radix Optional
 
+// radix Optional
 //     An integer between 2 and 36 that represents the radix (the base in mathematical numeral systems) of the string.
 
-//     If radix is ! undefined or 0,! it is assumed to be 10 except when the number begins with the code unit pairs 0x or 0X, in which case a radix of 16 is assumed.
+//     If radix is ! undefined or 0,! it is assumed to be 10 except when the number begins with the code unit pairs 0x or 0X, in which case a radix of 16 is assumed. doesn't work with 0b
 
 //when encounters first character of ouf current redix system it stops and evaluetes the number, not throwing an error
 
@@ -23,7 +22,7 @@ const args = [
   { a: Infinity, i: 0, r: 0 },
   { a: -Infinity, i: 0, r: 0 },
   { a: undefined, i: 0, r: 0 },
-  { a: null, i: 1, r: 0 }, //!imp
+  { a: null, i: 1, r: 0 }, //!imp does evaluate to zero, unlike parseFloat()
   { a: 5.0000000000000001, i: 0, r: 0 },
   { a: 0.00000000000000000000000000000000000001, i: 0, r: 0 },
   { a: "13y48r", i: 1, r: 0 },
@@ -44,7 +43,10 @@ const args = [
   { a: "0123", i: 1, r: 2 },
   { a: "0X0123", i: 1, r: undefined },
   { a: "0b0123", i: 1, r: undefined },
-  { a: "12134", i: 1, r: Infinity }, //!imp
+  //!imp infinity gets converted to NaN, and NaN to zero, zero to decimal
+  { a: "12134", i: 1, r: Infinity },
+  { a: "12134", i: 1, r: -Infinity }, //!imp
+  { a: "12134", i: 1, r: 1000 },
 ];
 
 args.forEach(({ a: arg, r: radix, i: isImportant }, index) => {
@@ -58,3 +60,5 @@ args.forEach(({ a: arg, r: radix, i: isImportant }, index) => {
   console.log(parsed);
 });
 console.log(terminator);
+
+Number.parseInt("11232", Infinity);

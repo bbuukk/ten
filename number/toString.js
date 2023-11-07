@@ -13,6 +13,10 @@ const args = [
   { n: 0.000123, a: -Infinity, i: 0 },
   { n: 0.000123, a: undefined, i: 1 },
   { n: 0.000123, a: null, i: 0 },
+
+  //both have '0' as string represantation
+  { n: 0, a: undefined, i: 0 },
+  { n: -0, a: undefined, i: 0 },
   {},
   { n: Number.MAX_VALUE, a: undefined, i: 0 },
   { n: null, a: undefined, i: 0 },
@@ -25,15 +29,18 @@ const args = [
   { n: "Hello", a: 10, i: 1 }, //!imp
   { n: "1237021", a: 2, i: 1 }, //!imp
   {},
-  // it ignores 0x part on the start of number if radix is not 16
-  { n: 0x23213, a: undefined, i: 1 }, //!imp
+  // it ignores 0x part on the start of number if radix is not 16 for radix === 10
   { n: 0x23213, a: 10, i: 1 }, //!imp
   { n: 0x23213, a: 16, i: 1 }, //!imp
   { n: 0x23213, a: 8, i: 1 },
+  { n: 23213, a: 8, i: 1 },
+  { n: 0x23213, a: 2, i: 1 },
   {},
-  //can work with BigInt
-  { n: 0x23213n, a: 8, i: 1 },
+  { n: 0x23213n, a: 8, i: 1 }, // ! BigInt
+  { n: 23213n, a: 8, i: 1 },
 ];
+
+(0x23213).toString(8);
 
 args.forEach(({ n: number, a: arg, i: isImportant }, index) => {
   try {

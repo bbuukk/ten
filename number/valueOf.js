@@ -24,10 +24,11 @@ const args = [
   { n: Number.MAX_VALUE + 1000, i: 1 },
   { n: Number.MAX_VALUE + Number.MAX_VALUE, i: 1 },
   {},
-  { n: 0x143891, i: 1 }, //returns in decimal
+  { n: 0x143891, i: 1 }, //! returns in decimal
   {},
   { n: 143891n, i: 1 },
   {},
+  //! rounding
   { n: 2.4999999999999999999999999, i: 1 },
   { n: 2.45, i: 0 },
   { n: 2.5, i: 0 },
