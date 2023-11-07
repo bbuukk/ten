@@ -12,16 +12,21 @@
 //!
 // Return value
 
-// The largest of the given numbers. //! Returns NaN if any of the parameters is or is converted into NaN. Returns -Infinity if no parameters are provided.
+// The largest of the given numbers. //! Returns NaN if any of the parameters is or is converted into NaN.
+
+//!Returns -Infinity if no parameters are provided.
 
 Math.max(10, 20); // 20
 Math.max(-10, -20); // -10
 Math.max(-10, 20); // 20
 
+console.log(Math.max());
+
 //? Getting the maximum element of an array
 {
   const arr = [1, 2, 3];
   const max = arr.reduce((a, b) => Math.max(a, b), -Infinity);
+  console.log(max);
 }
 {
   const arr = [1, 2, 3];

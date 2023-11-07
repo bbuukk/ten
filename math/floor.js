@@ -19,7 +19,7 @@ console.log(Math.floor(5.05));
 console.log(Math.floor(5));
 // Expected output: 5
 
-console.log(Math.floor(-5.05));
+console.log(Math.floor(-5.05)); // -6
 
 Math.floor(-Infinity); // -Infinity
 Math.floor(-45.95); // -46
