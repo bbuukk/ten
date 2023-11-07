@@ -95,7 +95,7 @@ const args = [
   { s: "foo", sp: null, l: undefined, i: 0 },
   { s: "foo", sp: undefined, l: undefined, i: 0 },
   {},
-  // { s: "foo", sp: new RegExp("o"), l: undefined, i: 0 }, //! not implemented
+  // { s: "foo", sp: new RegExp("o"), l: undefined, i: 0 },
   { s: "foo", sp: separator, l: undefined, i: 0 },
 ];
 
