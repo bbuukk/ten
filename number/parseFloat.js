@@ -1,11 +1,9 @@
 import { redANSI, terminator } from "../variables.mjs";
 
 // Number.parseFloat()
-
 // The Number.parseFloat() static method parses an argument and returns a floating point number. If a number cannot be parsed from the argument, it returns NaN.
 
 // Parameters
-
 // string
 //     The value to parse, //! coerced to a string. Leading whitespace in this argument is ignored.
 

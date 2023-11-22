@@ -1,9 +1,9 @@
 import { greenANSI, redANSI, terminator, yellowANSI } from "../variables.mjs";
 
 const args = [
-  { a: NaN, i: 0 },
-  { a: Infinity, i: 0 },
-  { a: -Infinity, i: 0 },
+  { a: NaN, i: 0 }, // nan
+  { a: Infinity, i: 0 }, // infinity
+  { a: -Infinity, i: 0 }, // -infinity
   { a: undefined, i: 0 }, // ! gives NaN
   { a: null, i: 1 }, //! gives zero
   { a: "", i: 1 }, //! gives zero wft?
@@ -21,6 +21,7 @@ const args = [
   { a: 0.00000000000000000000000000000000000001, i: 1 }, //! it does not round to 0
   { a: 1.00000000000000000000000000000000000001, i: 1 }, //!imp BUT rounds to 1
   { a: 1.00000000000001, i: 1 },
+  { a: 1.8, i: 1 },
   { a: {}, i: 0 },
   { a: "  23434        ", i: 0 },
   { a: "  23  434        ", i: 1 },
@@ -28,7 +29,7 @@ const args = [
   { a: "  23.434        ", i: 0 },
   { a: "Hello", i: 0 },
   { a: "2Hello2", i: 0 },
-  { a: "0000000001", i: 0 },
+  { a: "0000000001", i: 1 },
 ];
 
 args.forEach(({ a: arg, i: isImportant }, index) => {

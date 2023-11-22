@@ -25,7 +25,7 @@ const args = [
   { a: Number.MIN_SAFE_INTEGER - 1, i: 1 }, //! no rounding
   { a: Number.MAX_SAFE_INTEGER + 0.1, i: 1 }, //! rounding
   { a: Number.MAX_SAFE_INTEGER + 0.4, i: 1 }, //! rounding
-  { a: Number.MAX_SAFE_INTEGER + 0.5, i: 1 }, //! rounding
+  { a: Number.MAX_SAFE_INTEGER + 0.5, i: 1 }, //! no rounding
   { a: Number.MAX_VALUE, i: 0 },
   { a: {}, i: 0 },
 ];

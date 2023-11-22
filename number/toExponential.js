@@ -31,6 +31,7 @@ const args = [
   { a: 1, i: 1 }, //! imp rounding
 ];
 
+console.log(NaN.toExponential(0));
 args.forEach(({ a: arg, i: isImportant }, index) => {
   try {
     console.log(terminator);
