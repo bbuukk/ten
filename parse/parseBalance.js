@@ -1,23 +1,34 @@
-// Дозволено використовувати:
-// - 1 цикл for
-// - charCodes
+function parse(msg) {
+  const upperBound = "9".charCodeAt();
+  const lowerBound = "0".charCodeAt();
+  const point = ".".charCodeAt();
 
-function parseBalance(text) {
-  const lowerBound = "0".codePointAt(0);
-  const upperBound = "9".codePointAt(0);
+  let result = 0;
+  let isDecimal = false;
 
-  let balance = 0;
+  const msgLen = msg.length;
+  for (let i = 0, decLen = 1; i < msgLen; i++) {
+    const ch = msg[i];
+    const cp = ch.charCodeAt();
 
-  const textLength = text.length;
-  for (let i = 0; i < textLength; i++) {
-    const ch = text[i];
-    const codePoint = ch?.charCodeAt(0);
-    if (codePoint >= lowerBound && codePoint <= upperBound) {
-      balance += ch;
+    if (cp >= lowerBound && cp <= upperBound) {
+      const value = cp - lowerBound; //getting digit on i
+      if (!isDecimal) {
+        result = result * 10 + value;
+        continue;
+      } else {
+        result += value / 10 ** decLen;
+        ++decLen;
+        continue;
+      }
+    } else if (cp === point) {
+      isDecimal = true;
+    } else {
+      isDecimal = false;
     }
   }
-
-  return balance;
+  return result;
 }
 
-console.log(parseBalance("My wallet balance is 14960 USDT"));
+const text = "My balance is 2400.000095 USDT.";
+console.log(parse(text));

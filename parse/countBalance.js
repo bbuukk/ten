@@ -3,12 +3,11 @@
 function countBalance(msg) {
   let result = {};
 
-  const lowerNumberBound = "0".codePointAt();
-  const upperNumberBound = "9".codePointAt();
+  const lessThan = "<".charCodeAt();
+  const slash = "/".charCodeAt();
 
-  const at = "@".charCodeAt();
-  const lowerLetterBound = "A".codePointAt();
-  const upperLetterBound = "Z".codePointAt();
+  const lowerBound = "0".codePointAt();
+  const upperBound = "9".codePointAt();
 
   let name = "";
   let balance = 0;
@@ -17,19 +16,9 @@ function countBalance(msg) {
 
   const msgLen = msg.length;
   for (let i = 0; i <= msgLen; ++i) {
-    let ch = msg[i];
+    const ch = msg[i];
+
     const cp = ch?.charCodeAt();
-
-    const isLetter = cp >= lowerLetterBound && cp <= upperLetterBound;
-    const isNumber = cp >= lowerNumberBound && cp <= upperNumberBound;
-    const isAt = cp == at;
-
-    if (isLetter || isAt) {
-      ch = String.fromCharCode(cp + 32); //lowercasing letters
-      name += ch;
-    } else if (isNumber) {
-    } else {
-    }
 
     //start/stop name parsing
     if (!cp || cp == lessThan) {
@@ -46,21 +35,27 @@ function countBalance(msg) {
 
       i++; //skipping @ symbol
       continue;
-    } else if (cp == slash) {
+    }
+
+    if (cp == slash) {
       nameParsing = false;
       continue;
     }
 
     if (nameParsing) {
       if (ch != " ") {
+        //lowercasing
+        if (ch >= lowerLetterBound && ch <= upperLetterBound) {
+          ch = String.fromCharCode(ch.charCodeAt(0) + 32);
+        }
         name += ch;
       }
       continue;
     }
 
     //parsing balance
-    if (cp >= lowerNumberBound && cp <= upperNumberBound) {
-      const value = cp - lowerNumberBound;
+    if (cp >= lowerBound && cp <= upperBound) {
+      const value = cp - lowerBound;
       balance = balance * 10 + value;
       continue;
     }

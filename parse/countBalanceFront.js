@@ -6,7 +6,6 @@ function countBalance(text) {
 
   const lowerBound = "0".codePointAt(0);
   const upperBound = "9".codePointAt(0);
-  const whitespace = " ".charCodeAt(0);
 
   let sum = 0;
   let lastNum = 0;
