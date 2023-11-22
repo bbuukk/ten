@@ -5,6 +5,7 @@ import { redANSI, terminator } from "../variables.mjs";
 // The toFixed() method of Number values formats this number using fixed-point notation.
 
 const args = [
+  { a: 1.9124, n: 0.3, i: 1 }, //! flooring not rounding
   { a: NaN, n: 0.3, i: 0 },
   { a: "Hello", n: 0.3, i: 1 }, // counts as 0
   { a: 231239127, n: 0.3, i: 1 },

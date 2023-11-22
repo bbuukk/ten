@@ -13,8 +13,8 @@ const args = [
   { n: 0.000123, a: -Infinity, i: 0 },
   { n: 0.000123, a: undefined, i: 1 },
   { n: 0.000123, a: null, i: 0 },
-
   //both have '0' as string represantation
+  {},
   { n: 0, a: undefined, i: 0 },
   { n: -0, a: undefined, i: 0 },
   {},
@@ -29,7 +29,6 @@ const args = [
   { n: "Hello", a: 10, i: 1 }, //!imp
   { n: "1237021", a: 2, i: 1 }, //!imp
   {},
-  // it ignores 0x part on the start of number if radix is not 16 for radix === 10
   { n: 0x23213, a: 10, i: 1 }, //!imp
   { n: 0x23213, a: 16, i: 1 }, //!imp
   { n: 0x23213, a: 8, i: 1 },
@@ -40,7 +39,7 @@ const args = [
   { n: 23213n, a: 8, i: 1 },
 ];
 
-(0x23213).toString(8);
+console.log((0x23213).toString(10));
 
 args.forEach(({ n: number, a: arg, i: isImportant }, index) => {
   try {

@@ -5,8 +5,8 @@ import { redANSI, terminator } from "../variables.mjs";
 // The toExponential() method of Number values returns a string representing this number in exponential notation. 1- 1000
 
 const args = [
-  { a: NaN, i: 0 }, // converts to zero
-  { a: "Hello", i: 1 }, //! counts as 0
+  { a: NaN, i: 0 },
+  { a: "Hello", i: 1 },
   { a: -1, i: 1 },
   { a: Infinity, i: 1 }, //! does not convert Infinity to zero
   { a: -Infinity, i: 1 },
@@ -31,7 +31,6 @@ const args = [
   { a: 1, i: 1 }, //! imp rounding
 ];
 
-console.log(NaN.toExponential(0));
 args.forEach(({ a: arg, i: isImportant }, index) => {
   try {
     console.log(terminator);
