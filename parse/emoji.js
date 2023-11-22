@@ -8,8 +8,6 @@ import {
   green,
 } from "../variables.mjs";
 
-// ! assumptions
-
 function countEmoji(msg, emoji) {
   let result = {};
 

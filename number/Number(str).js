@@ -4,8 +4,15 @@ const args = [
   { a: NaN, i: 0 },
   { a: Infinity, i: 0 },
   { a: -Infinity, i: 0 },
-  { a: undefined, i: 0 },
-  { a: null, i: 1 },
+  { a: undefined, i: 0 }, // ! gives NaN
+  { a: null, i: 1 }, //! gives zero
+  { a: "", i: 1 }, //! gives zero wft?
+  { a: "   \n\t", i: 1 }, // 0 // toNumber coercion trimming leading and trailing whitespaces
+  { a: [""], i: 1 }, // 0
+  { a: [null], i: 1 }, // 0
+  { a: [undefined], i: 1 }, //it is absoulutely bonkers
+  { a: [undefined, undefined], i: 1 },
+  { a: [[[[[]]]]], i: 1 },
   { a: Number.MAX_VALUE, i: 0 },
   { a: Number.MAX_VALUE + Number.MAX_VALUE, i: 0 },
   { a: "1234", i: 0 },

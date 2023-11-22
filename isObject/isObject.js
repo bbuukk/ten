@@ -1,7 +1,10 @@
+// function isObject(obj) {
+//   return obj && Object.getPrototypeOf(obj) === Object.getPrototypeOf({})
+//     ? true
+//     : false;
+// }
 function isObject(obj) {
-  return obj && Object.getPrototypeOf(obj) === Object.getPrototypeOf({})
-    ? true
-    : false;
+  return obj && Object.getPrototypeOf(obj) === Object.prototype ? true : false;
 }
 
 const obj = { a: 1, b: 2 };

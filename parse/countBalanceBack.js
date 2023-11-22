@@ -10,30 +10,33 @@ const text =
 
 function countBalance(text) {
   const decimal = 10;
-
   const lowerBound = "0".codePointAt(0);
   const upperBound = "9".codePointAt(0);
-  const whitespace = " ".charCodeAt(0);
 
   let sumOfParsed = 0;
-  let lastNumParsed = 0;
-  let parsedLength = 0; //  length of number currently getting parsed
-  for (let i = text.length; i--; ) {
-    const codePoint = text[i].charCodeAt(0);
+  let lastNum = 0;
 
-    if (codePoint >= lowerBound && codePoint <= upperBound) {
-      if (!parsedLength) lastNumParsed = 0;
-      let value = codePoint - lowerBound;
-      lastNumParsed += value * decimal ** parsedLength;
-      ++parsedLength;
-    } else if (parsedLength && codePoint === whitespace) {
-      parsedLength = 0;
-      sumOfParsed += lastNumParsed;
+  for (let i = text.length, numLen = 0; i--; ) {
+    const cp = text[i].charCodeAt(0);
+
+    if (cp >= lowerBound && cp <= upperBound) {
+      if (!numLen) lastNum = 0;
+      let value = cp - lowerBound;
+      lastNum += value * decimal ** numLen;
+      ++numLen;
+
+      continue;
+    }
+
+    if (numLen) {
+      numLen = 0;
+      sumOfParsed += lastNum;
     }
   }
-  const spent = sumOfParsed - lastNumParsed;
 
-  return lastNumParsed - spent;
+  const spent = sumOfParsed - lastNum;
+
+  return lastNum - spent;
 }
 
 console.log(countBalance(text));
