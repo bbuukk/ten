@@ -8,13 +8,9 @@
 // Both numeric and string conversion make use of two methods of the input object: valueOf and toString . Both methods are declared on Object.prototype and thus available for any derived types, such as Date, Array, etc.
 
 // In general the // !  algorithm is as follows:
-
 // 1. If input is already a primitive, do nothing and return it.
-
 // 2. Call input.toString(), if the result is primitive, return it.
-
 // 3. Call input.valueOf(), if the result is primitive, return it.
-
 // 4. If neither input.toString() nor input.valueOf() yields primitive, throw TypeError.
 
 //! Numeric vs String conversion

@@ -9,14 +9,11 @@ console.log(`I feel ${mood.repeat(3)}`);
 
 //!
 // Parameters
-
 // count
-
 //     An integer between 0 and +Infinity, indicating the number of times to repeat the string.
 
 //!
 // Return value
-
 // A new string containing the specified number of copies of the given string.
 
 //!

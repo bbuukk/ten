@@ -6,7 +6,7 @@ function parseBalance(text) {
   const lowerBound = "0".codePointAt(0);
   const upperBound = "9".codePointAt(0);
 
-  let balance = "";
+  let balance = 0;
 
   const textLength = text.length;
   for (let i = 0; i < textLength; i++) {
