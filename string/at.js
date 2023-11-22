@@ -3,7 +3,6 @@ import { blackANSI, blueANSI, redANSI, terminator } from "../variables.mjs";
 // * String.prototype.at()
 
 // !returns undefined if idx is out range
-//
 
 // The at() method of String values takes an integer value and returns a new String consisting of the single UTF-16 code unidx located at the specified offset. This method allows for posidxive and negative integers. Negative integers count back from the last string character.
 
