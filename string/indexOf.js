@@ -109,7 +109,7 @@ args.forEach(({ s1, s2, p: position, i: isImportant }) => {
     if (isImportant !== undefined) {
       console.log(terminator);
       console.log(isImportant ? `${redANSI}` : "", `→ S1: ${s1}, S2: ${s2}`);
-      console.log(s1.includes(s2, position));
+      console.log(s1.indexOf(s2, position));
     } else {
       console.log(`${terminator}\n\n${terminator}\n`);
     }

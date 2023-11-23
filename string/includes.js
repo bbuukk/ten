@@ -30,13 +30,13 @@ const args = [
   {
     s1: "To be, or not to be, that is the question.",
     s2: ".",
-    p: -1, // defaults
+    p: -1,
     i: 1,
   },
   {
     s1: "To be, or not to be, that is the question.",
     s2: "",
-    p: -1, // defaults
+    p: -1,
     i: 1,
   },
   {
@@ -48,7 +48,7 @@ const args = [
   {
     s1: "To be, or not to be, that is the question.",
     s2: ".",
-    p: 100, // converts to zero
+    p: 100,
     i: 1,
   },
   {},

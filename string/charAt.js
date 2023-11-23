@@ -8,8 +8,6 @@ import { blackANSI, blueANSI, redANSI, terminator } from "../variables.mjs";
 
 // charAt() always indexes the string as a sequence of UTF-16 code units, so it may return lone surrogates. To get the full Unicode code point at the given index, use String.prototype.codePointAt() and String.fromCodePoint().
 
-console.log(str);
-
 const args = [
   { s: "Hello", idx: 0, i: 0 },
   { s: "I am Bohdan", idx: 0, i: 0 },

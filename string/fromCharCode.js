@@ -22,7 +22,7 @@ const args = [
   { cs: [0xd834, 0xdf06, 0x61, 0xd834, 0xdf07], idx: 0, i: 0 },
   {},
   { cs: [undefined, undefined], idx: 0, i: 0 },
-  { cs: [null, n], idx: 0, i: 0 },
+  { cs: [null, null], idx: 0, i: 0 },
   { cs: [Infinity], idx: 0, i: 0 },
   { cs: [NaN], idx: 0, i: 0 },
   {},

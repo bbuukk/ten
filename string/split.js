@@ -22,7 +22,6 @@ console.log(strCopy);
 //* separator
 
 //     The pattern describing where each split should occur. Can be undefined, a string, or an object with a Symbol.split method — the typical example being a regular expression. Omitting separator or passing undefined causes split() to return an array with the calling string as a single element. //! All values that are not undefined or objects with a @@split method are coerced to strings.
-
 //* limit Optional
 
 //     A non-negative integer specifying a limit on the number of substrings to be included in the array. If provided, splits the string at each occurrence of the specified separator, but stops when limit entries have been placed in the array. Any leftover text is not included in the array at all.

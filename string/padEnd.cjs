@@ -1,4 +1,9 @@
 // String.prototype.padEnd()
+const prompt = require("prompt-sync")();
+
+// const { redANSI, terminator } = require("../variables.mjs");
+const redANSI = "\x1b[31m";
+const terminator = "-------------------------------";
 
 // The padEnd() method of String values pads this string with a given string (repeated, if needed) so that the resulting string reaches a given length. The padding is applied from the end of this string.
 
@@ -34,3 +39,37 @@ console.log(str2.padEnd(5));
 "abc".padEnd(10, "foo"); // "abcfoofoof"
 "abc".padEnd(6, "123456"); // "abc123"
 "abc".padEnd(1); // "abc"
+
+const args = [
+  { s: "Hello", tl: 0, ps: "Me", i: 0 },
+  { s: "Hello", tl: 10, ps: "Me", i: 0 },
+  { s: "Hello", tl: 4, ps: "furia", i: 0 },
+  { s: "Hello", tl: 15, ps: "furia", i: 0 },
+  { s: "Hello", tl: 0, ps: undefined, i: 0 },
+  { s: "Hello", tl: 10, ps: undefined, i: 0 },
+  {},
+];
+
+args.forEach(
+  ({ s: string, tl: targetLength, ps: padString, i: isImportant }) => {
+    try {
+      if (isImportant !== undefined) {
+        console.log(terminator);
+        // console.log(isImportant ? `${redANSI}` : "", `→ S1: ${s1}, S2: ${s2}`);
+        const result = string.padEnd(targetLength, padString);
+        //
+        const guess = prompt("guess: ");
+        //
+        console.log(result);
+        console.log(guess);
+
+        console.clear();
+      } else {
+        console.log(`${terminator}\n\n${terminator}\n`);
+      }
+    } catch (e) {
+      console.log(redANSI, `ERR: ${e.message}`);
+    }
+  }
+);
+console.log(terminator);
