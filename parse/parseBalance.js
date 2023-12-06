@@ -30,5 +30,7 @@ function parse(msg) {
   return result;
 }
 
-const text = "My balance is 2400.000095 USDT.";
+// const text = "My balance is 2400.000095 USDT.";
+const text = "Max received 2400.0084 USDT";
+
 console.log(parse(text));
